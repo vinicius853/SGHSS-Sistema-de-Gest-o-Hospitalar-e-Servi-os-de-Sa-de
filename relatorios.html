@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>SGHSS - Relatórios</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Proteção simples -->
+    <script>
+        if (!sessionStorage.getItem("usuarioLogado")) {
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
+
+<body class="dashboard-body">
+
+   
+    <aside class="sidebar">
+        <h2 class="logo">SGHSS</h2>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="cadastro.html">Cadastros</a></li>
+                <li><a href="relatorios.html" class="active">Relatórios</a></li>
+                <li><a href="index.html" onclick="sessionStorage.clear()">Sair</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo -->
+    <main class="main-content">
+
+        <header class="top-bar">
+            <h1>Relatório de Pacientes</h1>
+            <span>Gerenciamento de cadastros</span>
+        </header>
+
+        <section class="table-section">
+
+            <table class="relatorio-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Nascimento</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tabelaPacientes"></tbody>
+            </table>
+
+            <p id="semDados" style="margin-top: 15px; color: #7f8c8d; display: none;">
+                Nenhum paciente cadastrado.
+            </p>
+
+        </section>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        function carregarRelatorio() {
+            const pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+            const tabela = document.getElementById("tabelaPacientes");
+            const aviso = document.getElementById("semDados");
+
+            tabela.innerHTML = "";
+
+            if (pacientes.length === 0) {
+                aviso.style.display = "block";
+                return;
+            }
+
+            aviso.style.display = "none";
+
+            pacientes.forEach((p, index) => {
+                const linha = document.createElement("tr");
+
+                linha.innerHTML = `
+                    <td>${p.nome}</td>
+                    <td>${p.cpf}</td>
+                    <td>${p.data}</td>
+                    <td>${p.telefone || "-"}</td>
+                    <td>${p.endereco || "-"}</td>
+                    <td>
+                        <button class="btn-excluir" onclick="excluirPaciente(${index})">
+                            Excluir
+                        </button>
+                    </td>
+                `;
+
+                tabela.appendChild(linha);
+            });
+        }
+
+        function excluirPaciente(index) {
+            const confirmar = confirm("Tem certeza que deseja excluir este paciente?");
+            if (!confirmar) return;
+
+            let pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+            pacientes.splice(index, 1);
+            localStorage.setItem("pacientes", JSON.stringify(pacientes));
+
+            carregarRelatorio();
+        }
+
+        carregarRelatorio();
+    </script>
+
+</body>
+</html>

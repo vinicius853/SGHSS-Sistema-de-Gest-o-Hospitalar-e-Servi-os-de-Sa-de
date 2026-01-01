@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>SGHSS - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="login-body">
+
+    <div class="login-container">
+
+        <h1>SGHSS</h1>
+        <p>Sistema de Gestão Hospitalar e Serviços de Saúde</p>
+
+        <form onsubmit="return login()">
+            <div class="form-group">
+                <label for="usuario">Usuário</label>
+                <input type="text" id="usuario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" required>
+            </div>
+
+            <button type="submit" class="btn-login">Entrar</button>
+        </form>
+
+        <p id="erro" style="color:red; text-align:center; margin-top:10px;"></p>
+
+        <div class="footer-text">
+            © 2026 - SGHSS | Projeto: Desenvolvimento Front-end 
+        </div>
+
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

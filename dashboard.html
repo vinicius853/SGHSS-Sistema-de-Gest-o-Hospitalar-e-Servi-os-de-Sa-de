@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>SGHSS - Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Proteção de login -->
+    <script>
+        if (!sessionStorage.getItem("usuarioLogado")) {
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
+
+<body class="dashboard-body">
+
+    
+    <aside class="sidebar">
+        <h2 class="logo">SGHSS</h2>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="cadastro.html">Cadastros</a></li>
+                <li><a href="relatorios.html">Relatórios</a></li>
+                <li><a href="index.html" onclick="sessionStorage.clear()">Sair</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+
+        <header class="top-bar">
+            <h1>Dashboard</h1>
+            <span>Visão geral do sistema</span>
+        </header>
+
+        <!-- Cards -->
+        <section class="cards">
+            <div class="card">
+                <h3>Total de Pacientes</h3>
+                <p id="totalPacientes">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Cadastros Hoje</h3>
+                <p id="cadastrosHoje">0</p>
+            </div>
+        </section>
+
+        <!-- Gráficos -->
+        <section class="charts">
+
+            <div class="chart-box">
+                <h3>Pacientes por Mês</h3>
+                <canvas id="graficoMes"></canvas>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        const pacientes = JSON.parse(localStorage.getItem("pacientes")) || [];
+
+        // TOTAL
+        document.getElementById("totalPacientes").innerText = pacientes.length;
+
+        // CADASTROS DE HOJE
+        const hoje = new Date().toISOString().split("T")[0];
+        const hojeQtd = pacientes.filter(p => p.dataCadastro === hoje).length;
+        document.getElementById("cadastrosHoje").innerText = hojeQtd;
+
+        // AGRUPAR POR MÊS
+        const meses = {};
+        pacientes.forEach(p => {
+            if (!p.dataCadastro) return;
+
+            const mes = p.dataCadastro.substring(0, 7); // yyyy-mm
+            meses[mes] = (meses[mes] || 0) + 1;
+        });
+
+        const labels = Object.keys(meses);
+        const dados = Object.values(meses);
+
+        // GRÁFICO
+        new Chart(document.getElementById("graficoMes"), {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Pacientes cadastrados",
+                    data: dados,
+                    backgroundColor: "#3498db"
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
