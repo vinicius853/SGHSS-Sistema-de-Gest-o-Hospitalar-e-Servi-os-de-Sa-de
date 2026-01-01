@@ -1,0 +1,108 @@
+# SGHSS – Sistema de Gestão Hospitalar e Serviços de Saúde
+
+## 📌 Descrição do Projeto
+
+O **SGHSS** é um sistema web desenvolvido como **projeto acadêmico**, com o objetivo de simular um sistema de gestão hospitalar básico, permitindo o **cadastro, visualização e gerenciamento de pacientes**, além de apresentar **indicadores em um dashboard com gráficos**.
+
+O projeto foi desenvolvido utilizando apenas tecnologias do **front-end**, simulando um banco de dados por meio do **LocalStorage do navegador**.
+
+---
+
+## 🎯 Objetivo
+
+Demonstrar, na prática, os conceitos de:
+
+* Estruturação de páginas web
+* Navegação entre páginas
+* Persistência de dados
+* Manipulação do DOM
+* Uso de gráficos para visualização de dados
+
+---
+
+## 🧩 Funcionalidades
+
+### 🔐 Login
+
+* Tela de autenticação simples
+* Controle de acesso via `sessionStorage`
+* Proteção das páginas internas do sistema
+
+### 📋 Cadastro de Pacientes
+
+* Cadastro de pacientes com os seguintes dados:
+
+  * Nome completo
+  * CPF
+  * Data de nascimento
+  * Telefone
+  * Endereço
+* Salvamento dos dados no **LocalStorage**
+* Registro automático da data do cadastro
+
+### 📊 Dashboard
+
+* Exibição de indicadores gerais do sistema:
+
+  * Total de pacientes cadastrados
+  * Cadastros realizados no dia
+* Gráfico de pacientes cadastrados por mês
+* Gráficos gerados dinamicamente com **Chart.js**
+
+### 📑 Relatórios
+
+* Listagem completa dos pacientes cadastrados
+* Leitura direta dos dados do LocalStorage
+* Opção de **exclusão de pacientes**
+* Atualização automática da tabela após exclusões
+
+---
+
+## 🗂️ Estrutura do Projeto
+
+```
+SGHSS/
+│
+├── index.html        # Página de login
+├── dashboard.html    # Dashboard com gráficos
+├── cadastro.html     # Cadastro de pacientes
+├── relatorios.html   # Relatórios e exclusões
+├── style.css         # Estilos do sistema
+└── README.md         # Documentação do projeto
+```
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **HTML5** – Estrutura das páginas
+* **CSS3** – Estilização do sistema
+* **JavaScript (Vanilla)** – Lógica e manipulação de dados
+* **Chart.js** – Criação de gráficos
+* **LocalStorage / SessionStorage** – Simulação de banco de dados e controle de sessão
+
+---
+
+## ▶️ Como Executar o Projeto
+
+1. Faça o download ou clone o repositório
+2. Abra o arquivo `index.html` em um navegador web
+3. Realize o login
+4. Navegue pelas funcionalidades do sistema
+
+> Não é necessário servidor ou banco de dados externo.
+
+---
+
+## 📚 Observações Acadêmicas
+
+Este projeto tem fins **educacionais**, com foco na aplicação prática dos conhecimentos adquiridos em sala de aula, simulando o funcionamento de um sistema real de gestão hospitalar.
+
+---
+
+## 👨‍🎓 Autor
+
+**Vinícius Souza**
+Curso: Análise e Desenvolvimento de Sistemas
+Projeto Acadêmico – 2026
+
